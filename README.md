@@ -1,5 +1,5 @@
 # epirandom
-This project is a kernel object who use a device file to generate an infinite chain of characters.
+This project is a kernel object which use a device file to generate an infinite chain of characters.
 If you try to read ```/dev/epirandom``` with ```cat``` for example, you will get a random characters.
 
 ## Usage
