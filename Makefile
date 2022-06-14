@@ -19,7 +19,7 @@ modules_install:
 check:
 	@sudo dmesg -C
 	@sudo insmod epirandom.ko
-	@echo $(call greentext, "Checking if epirandom is loaded...")
+	@echo $(call greentext, "Checking if epirandom is loaded...\n\n")
 	@touch $(PWD)/$(MAJOR)
 	@echo "sudo mknod /dev/epirandom c \\"> $(PWD)/$(MAJOR)
 	@sudo dmesg | grep "epirandom: major" | cut -d '"' -f 2 >>  $(MAJOR)
@@ -34,15 +34,15 @@ nod:
 	@sudo dmesg | grep "epirandom: major" | cut -d '"' -f 2 >>  $(MAJOR)
 	@echo 0 >> $(PWD)/$(MAJOR)
 	@sudo dmesg -T | grep epirandom
-	@$(shell bash $(PWD)/$(MAJOR))
-	
+	@echo $(call yellowtext, "\n\nRun: bash $(MAJOR)")
 
 clean:
 	$(RM) *.o *~ core .depend .*.cmd *.ko *.mod.c *.tmp_versions *.mod *.order *.symvers $(MAJOR)
 	@-sudo rmmod epirandom
 	@-sudo $(RM) /dev/epirandom
 	@-sudo dmesg -T | grep epirandom
-	@-echo $(call redtext, "Epirandom removed.")
+	@sudo dmesg -C
+	@-echo $(call redtext, "\n\nEpirandom removed.")
 
 .PHONY: modules modules_install clean check
 
